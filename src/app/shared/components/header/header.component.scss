@@ -1,0 +1,20 @@
+
+$breakpoint-tablet: 992px;
+@media (min-width: $breakpoint-tablet) {
+  .navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+    justify-content: end;
+  }
+  .navbar-nav a{
+    margin-right: 80px;
+  }
+}
+.navbar a{
+  color: white !important;
+  font-weight: 500;
+}
+
+.container-fluid{
+  padding: 0 50px !important;
+}

@@ -1,0 +1,7 @@
+<div>
+  <label class="pe-3">{{title}}</label>
+  <select  style="width: 200px;" (change)="filter($event)">
+    <option value="all" *ngIf="all">All</option>
+    <option value="{{item}}" [selected] ="item == selected"  *ngFor="let item of data">{{item}}</option>
+  </select>
+</div>

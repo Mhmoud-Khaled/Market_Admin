@@ -1,0 +1,14 @@
+<div class="details mt-5 d-md-flex-columns d-lg-flex" *ngIf="!spinner">
+  <div class="img" style="min-width: 200px; min-height: 200px; max-width: 300px;">
+    <img src={{product.image}} alt="image" style="width: 100%;"/>
+  </div>
+  <div class="text ps-3 mt-md-3 mt-lg-0" style="max-width: 500px;">
+    <div class="title">
+      <h2>{{product.title}}</h2>
+      <h5>Category: <label style="font-size: 20px; font-weight: 400; color: gray;">{{product.category.name}}</label></h5>
+      <h5>Description: <label style="font-size: 20px; font-weight: 400; color: gray;">{{product.description}}</label></h5>
+      <h5>Price: <label style="font-size: 20px; font-weight: 400; color: gray;">{{product.price}} $</label></h5>
+    </div>
+  </div>
+</div>
+<app-spinner *ngIf="spinner"></app-spinner>

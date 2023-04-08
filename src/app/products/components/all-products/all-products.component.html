@@ -1,0 +1,157 @@
+<button
+  type="button"
+  class="btn btn-success mt-3 mb-3"
+  style="margin-left: 5px"
+  data-toggle="modal"
+  data-target="#exampleModalCenter"
+  (click)="clearAddProductData()"
+>
+  Add Product
+</button>
+
+<div
+  class="modal fade"
+  id="exampleModalCenter"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered"
+    role="document"
+    style="min-width: 800px"
+  >
+    <div class="modal-content" [formGroup] = "form">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Product</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="input-group mb-3 col-4 input">
+            <span class="input-group-text" id="basic-addon1">Title</span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Product Title"
+              aria-label="product Title"
+              aria-describedby="basic-addon1"
+              formControlName="title"
+            />
+          </div>
+          <div class="input-group mb-3 col-4 input">
+            <span class="input-group-text" id="basic-addon1">Price</span>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Price"
+              aria-label="Price"
+              aria-describedby="basic-addon1"
+              formControlName="price"
+            />
+          </div>
+          <div class="input-group mb-3 col-4">
+            <app-selection
+              aria-describedby="basic-addon1"
+              [title]="'Categories'"
+              [data]="categories"
+              [all]="false"
+              (selectedValue) = "getSelectedValue($event)"
+              [selected]="form.value.category"
+            ></app-selection>
+          </div>
+
+          <div class="input-group mb-3 col-12 input">
+            <label class="input-group-text" for="image">Image</label>
+            <img src={{base64}} alt="no image!" style="width:80px; height: 80px;">
+            <input type="file" class="form-control" accept="image/png, image/jpeg" (change)="getBase64($event)"/>
+          </div>
+
+          <div class="input-group mb-3 col-12">
+            <span class="input-group-text" id="basic-addon1">Discreption</span>
+            <textarea
+              class="form-control"
+              style="
+                max-width: 770px;
+                max-height: 200px;
+                min-width: 770px;
+                min-height: 200px;
+              "
+              formControlName="description"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" [disabled]="!form.valid" (click)="addProduct()">
+          Add Product
+        </button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-selection
+  [title]="'Categories'"
+  [data]="categories"
+  (selectedValue)="filterByCategory($event)"
+></app-selection>
+
+<div class="row mb-5" *ngIf="spinner">
+  <div class="box col-sm-12 col-md-12 col-lg-12">
+    <table class="table table-striped mt-3" style="min-width: 100%">
+      <thead style="text-align: center">
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th style="width: 100px">Total</th>
+        <th></th>
+      </thead>
+      <tbody
+        style="text-align: center; vertical-align: middle"
+        *ngFor="let item of products"
+      >
+        <tr>
+          <td>
+            <div style="max-width: 100px; border-radius: 50px">
+              <img
+                src="{{ item.image }}"
+                alt="img"
+                style="width: 100%; text-align: center"
+              />
+            </div>
+          </td>
+          <td>{{ item.title }}</td>
+          <td>{{ item.category }}</td>
+          <td style="width: 100px">{{ item.rating.count }}</td>
+          <td style="width: 100px">{{ item.price }}</td>
+          <td>
+            <button
+            type="button"
+            class="btn btn-info mt-3 mb-3"
+            style="margin-left: 5px"
+            data-toggle="modal"
+            data-target="#exampleModalCenter"
+            (click)="updateDate(item.id)"
+            >
+              Update
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="text-center w-100">
+  <app-spinner *ngIf="!spinner"></app-spinner>
+</div>
